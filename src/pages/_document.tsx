@@ -10,11 +10,7 @@ class MyDocument extends Document {
   render(): JSX.Element {
     return (
       <Html lang="ja">
-        <Head>
-          <meta charSet="utf-8" />
-          <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
-          <meta content="width=device-width, initial-scale=1" name="viewport" />
-        </Head>
+        <Head></Head>
         <body className="transition duration-200 ease-in-out font-mono bg-white">
           <Main />
           <NextScript />
