@@ -54,6 +54,13 @@ const Home = () => {
             </a>
             をご覧ください
           </p>
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
         </div>
       </Layout>
     );

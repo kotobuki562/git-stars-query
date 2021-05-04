@@ -29,6 +29,7 @@ type StarRepos = {
     | "PHP"
     | string;
   // APIURL
+  description: string;
   languages_url: string;
   stargazers_count: number;
   owner: {
@@ -49,35 +50,36 @@ export const Widget: VFC<StarRepos> = ({
   language,
   languages_url,
   stargazers_count,
+  description,
   owner,
 }) => {
   // const [languages, setLanguages] = useState();
   const [userInfo, setUserInfo] = useState<any | null>();
-  const fetchUserInfo = async () => {
-    try {
-      const res = await fetch(owner.url);
-      const data = await res.json();
-      setUserInfo(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // const fetchLanguages = async () => {
+  // const fetchUserInfo = async () => {
   //   try {
-  //     const res = await fetch(languages_url);
+  //     const res = await fetch(owner.url);
   //     const data = await res.json();
-  //     setLanguages(data);
+  //     setUserInfo(data);
   //   } catch (error) {
   //     console.log(error);
   //   }
   // };
-  // console.log(languages);
-  console.log(userInfo);
+  // // const fetchLanguages = async () => {
+  // //   try {
+  // //     const res = await fetch(languages_url);
+  // //     const data = await res.json();
+  // //     setLanguages(data);
+  // //   } catch (error) {
+  // //     console.log(error);
+  // //   }
+  // // };
+  // // console.log(languages);
+  // console.log(userInfo);
 
-  useEffect(() => {
-    // fetchLanguages();
-    fetchUserInfo();
-  }, []);
+  // useEffect(() => {
+  //   // fetchLanguages();
+  //   fetchUserInfo();
+  // }, []);
 
   return (
     <div className="flex flex-col border-b px-4 pb-4 hover:bg-teal-50">
@@ -105,6 +107,7 @@ export const Widget: VFC<StarRepos> = ({
           </a>
         </div>
       </div>
+      {/* <div className="mb-4">{`${description?.slice(0, 100)}...`}</div> */}
       <div className="flex items-center">
         <p className="flex items-center mr-4">
           <GiRoundStar className="text-yellow-400 text-lg mr-1" />
