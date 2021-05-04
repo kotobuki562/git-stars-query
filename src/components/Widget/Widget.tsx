@@ -82,8 +82,8 @@ export const Widget: VFC<StarRepos> = ({
   // }, []);
 
   return (
-    <div className="flex flex-col border-b px-4 pb-4 hover:bg-teal-50">
-      <div className="flex items-center pt-4 mb-4">
+    <div className="flex flex-col border-b px-4 pb-2 hover:bg-teal-50">
+      <div className="flex items-center pt-2 mb-2">
         <div className="mr-4">
           <a href={`https://github.com/${owner.login}`}>
             <img
