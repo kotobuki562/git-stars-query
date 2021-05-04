@@ -4,7 +4,6 @@ import { myStars } from "../components/data";
 import { Layout } from "../components/Layout";
 import Skeleton from "../components/Widget/Skeleton";
 import { Button } from "../components/Button/Button";
-import { url } from "node:inspector";
 
 const API_ENDPOINT = "https://api.github.com/users";
 
@@ -12,7 +11,7 @@ const Home = () => {
   const [info, setInfo] = useState<any | null>();
   const [page, setPage] = useState<number | null>(1);
   const [user, setUser] = useState<string | null>("kotobuki562");
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchData = async (pageQuery: number) => {
     try {
@@ -36,6 +35,7 @@ const Home = () => {
   };
 
   console.log(info);
+
   // console.log(myStars.length);
 
   useEffect(() => {
@@ -92,14 +92,14 @@ const Home = () => {
           />
           <Button
             btnText="次へ"
-            useage={info.length < 30 ? null : "base"}
+            useage={info?.length < 30 ? null : "base"}
             size="md"
-            disabled={info.length < 30}
+            disabled={info?.length < 30}
             onClick={() => setPage(page + 1)}
           />
         </div>
-        <p>{info.length}</p>
-        {info.map((data) => {
+        <p>{info?.length}</p>
+        {info?.map((data) => {
           const { login, full_name, avatar_url, html_url, url } = data.owner;
           return (
             <div key={data.id} className="w-full">

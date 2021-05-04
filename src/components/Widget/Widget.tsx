@@ -4,7 +4,7 @@ import cc from "classcat";
 import { GiRoundStar } from "react-icons/gi";
 import { AiOutlineLink } from "react-icons/ai";
 import { HiExternalLink } from "react-icons/hi";
-import { FaRegUser } from "react-icons/fa";
+import { FaRegUser, FaTwitter, FaBlog } from "react-icons/fa";
 
 type StarRepos = {
   name: string;
@@ -25,6 +25,8 @@ type StarRepos = {
     | "SCSS"
     | "Docker"
     | "Ruby"
+    | "Python"
+    | "PHP"
     | string;
   // APIURL
   languages_url: string;
@@ -50,16 +52,16 @@ export const Widget: VFC<StarRepos> = ({
   owner,
 }) => {
   // const [languages, setLanguages] = useState();
-  // const [userInfo, setUserInfo] = useState<string>();
-  // const fetchUserInfo = async () => {
-  //   try {
-  //     const res = await fetch(owner.url);
-  //     const data = await res.json();
-  //     setUserInfo(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const [userInfo, setUserInfo] = useState<any | null>();
+  const fetchUserInfo = async () => {
+    try {
+      const res = await fetch(owner.url);
+      const data = await res.json();
+      setUserInfo(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // const fetchLanguages = async () => {
   //   try {
   //     const res = await fetch(languages_url);
@@ -70,12 +72,12 @@ export const Widget: VFC<StarRepos> = ({
   //   }
   // };
   // console.log(languages);
-  // console.log(userInfo);
+  console.log(userInfo);
 
-  // useEffect(() => {
-  //   fetchLanguages();
-  //   fetchUserInfo();
-  // }, []);
+  useEffect(() => {
+    // fetchLanguages();
+    fetchUserInfo();
+  }, []);
 
   return (
     <div className="flex flex-col border-b px-4 pb-4 hover:bg-teal-50">
@@ -99,7 +101,7 @@ export const Widget: VFC<StarRepos> = ({
           </a>
           <a className="text-teal-600 flex items-center" href={`${html_url}`}>
             <HiExternalLink className="mr-1" />
-            {name}
+            {name.length >= 20 ? `${name.slice(0, 20)}...` : name}
           </a>
         </div>
       </div>
@@ -111,7 +113,7 @@ export const Widget: VFC<StarRepos> = ({
         <div className="flex items-center mr-2">
           <span
             className={cc([
-              "w-7 h-7 rounded-full flex flex-col items-center justify-center mr-1",
+              "w-3 h-3 rounded-full flex flex-col items-center justify-center mr-2",
               language === "HTML" ? "bg-HTML text-white" : null,
               language === "CSS" ? "bg-CSS text-white" : null,
               language === "TypeScript" ? "bg-TypeScript text-white" : null,
@@ -122,19 +124,40 @@ export const Widget: VFC<StarRepos> = ({
               language === "Dart" ? "bg-Dart text-white" : null,
               language === "Lue" ? "bg-Lue text-white" : null,
               language === "SCSS" ? "bg-SCSS text-white" : null,
+              language === "Ruby" ? "bg-Ruby text-white" : null,
+              language === "Python" ? "bg-Python text-white" : null,
+              language === "PHP" ? "bg-PHP text-white" : null,
             ])}
           >
-            {language.slice(0, 1) || null}
+            {/* {language.slice(0, 1) || null} */}
           </span>
           <p>{language || null}</p>
         </div>
 
         {homepage ? (
           <a
-            className="hover:bg-teal-100 rounded-full p-1"
+            className="hover:bg-teal-100 rounded-full p-1 mr-1"
             href={`${homepage}`}
           >
             <AiOutlineLink className="text-lg text-teal-600" />
+          </a>
+        ) : null}
+
+        {userInfo?.twitter_username ? (
+          <a
+            className="hover:bg-teal-100 rounded-full p-1 mr-1"
+            href={`https://twitter.com/${userInfo?.twitter_username}`}
+          >
+            <FaTwitter className="text-lg text-teal-600" />
+          </a>
+        ) : null}
+
+        {userInfo?.blog ? (
+          <a
+            className="hover:bg-teal-100 rounded-full p-1 mr-1"
+            href={`${userInfo?.blog}`}
+          >
+            <FaBlog className="text-lg text-teal-600" />
           </a>
         ) : null}
 
