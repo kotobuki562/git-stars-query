@@ -142,7 +142,7 @@ export const Widget: VFC<StarRepos> = ({
             className="hover:bg-teal-100 rounded-full p-1 mr-1"
             href={`${homepage}`}
           >
-            <AiOutlineLink className="text-lg text-teal-600" />
+            <AiOutlineLink className="text-xl text-teal-600" />
           </a>
         ) : null}
 
