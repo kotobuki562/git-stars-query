@@ -54,13 +54,23 @@ const Home = () => {
             </a>
             をご覧ください
           </p>
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
-
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
+          <p>{myStars.length}</p>
+          {myStars.map((data) => {
+            const { login, avatar_url, html_url, url } = data.owner;
+            return (
+              <div key={data.id} className="w-full">
+                <Widget
+                  {...data}
+                  owner={{
+                    avatar_url: avatar_url,
+                    login: login,
+                    html_url: html_url,
+                    url: url,
+                  }}
+                />
+              </div>
+            );
+          })}
         </div>
       </Layout>
     );

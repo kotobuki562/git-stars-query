@@ -34,7 +34,7 @@ type StarRepos = {
   stargazers_count: number;
   owner: {
     login: string;
-    full_name: string;
+    // full_name: string;
     // imageURL
     avatar_url: string;
     html_url: string;
