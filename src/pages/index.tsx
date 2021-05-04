@@ -9,7 +9,7 @@ import { url } from "node:inspector";
 const API_ENDPOINT = "https://api.github.com/users";
 
 const Home = () => {
-  const [info, setInfo] = useState<any | null>([]);
+  const [info, setInfo] = useState<any | null>();
   const [page, setPage] = useState<number | null>(1);
   const [user, setUser] = useState<string | null>("kotobuki562");
   const [loading, setLoading] = useState<boolean>(true);
@@ -42,6 +42,22 @@ const Home = () => {
     fetchData(page);
   }, [page]);
 
+  if (info?.documentation_url) {
+    return (
+      <Layout>
+        <div>
+          <p>APIのリクエストの制限が超えました。</p>
+          <p>
+            詳しくは
+            <a className="text-teal-400" href={info?.documentation_url}>
+              こちら
+            </a>
+            をご覧ください
+          </p>
+        </div>
+      </Layout>
+    );
+  }
   if (loading) {
     return (
       <Layout>
