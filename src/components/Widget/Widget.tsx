@@ -27,7 +27,11 @@ type StarRepos = {
     | "Ruby"
     | "Python"
     | "PHP"
-    | string;
+    | "Rust"
+    | "Java"
+    | "Vim script"
+    | string
+    | null;
   // APIURL
   description: string;
   languages_url: string;
@@ -130,11 +134,16 @@ export const Widget: VFC<StarRepos> = ({
               language === "Ruby" ? "bg-Ruby text-white" : null,
               language === "Python" ? "bg-Python text-white" : null,
               language === "PHP" ? "bg-PHP text-white" : null,
+              language === "Java" ? "bg-Java text-white" : null,
+              language === "Rust" ? "bg-Rust text-white" : null,
+              language === "C" ? "bg-C text-white" : null,
+              language === "C++" ? "bg-C++ text-white" : null,
+              language === "Vim script" ? "bg-Vimscript text-white" : null,
             ])}
           >
             {/* {language.slice(0, 1) || null} */}
           </span>
-          <p>{language || null}</p>
+          <p>{language || "Other or MD"}</p>
         </div>
 
         {homepage ? (
@@ -146,7 +155,7 @@ export const Widget: VFC<StarRepos> = ({
           </a>
         ) : null}
 
-        {userInfo?.twitter_username ? (
+        {/* {userInfo?.twitter_username ? (
           <a
             className="hover:bg-teal-100 rounded-full p-1 mr-1"
             href={`https://twitter.com/${userInfo?.twitter_username}`}
@@ -162,7 +171,7 @@ export const Widget: VFC<StarRepos> = ({
           >
             <FaBlog className="text-lg text-teal-600" />
           </a>
-        ) : null}
+        ) : null} */}
 
         {/* <p>{languages_url}</p> */}
       </div>

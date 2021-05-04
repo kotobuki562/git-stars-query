@@ -12,11 +12,23 @@ import useSWR from "swr";
 const API_ENDPOINT = "https://api.github.com/users";
 
 const languages = [
-  { id: 1, name: "TypeScript", unavailable: true },
-  { id: 2, name: "JavaScript", unavailable: false },
-  { id: 3, name: "HTML", unavailable: false },
-  { id: 4, name: "CSS", unavailable: false },
-  { id: 5, name: "Vue", unavailable: false },
+  { id: 1, name: "languages", unavailable: true },
+  { id: 2, name: "TypeScript", unavailable: true },
+  { id: 3, name: "JavaScript", unavailable: false },
+  { id: 4, name: "HTML", unavailable: false },
+  { id: 5, name: "CSS", unavailable: false },
+  { id: 6, name: "Vue", unavailable: false },
+  { id: 7, name: "Elixir", unavailable: false },
+  { id: 8, name: "Dart", unavailable: false },
+  { id: 9, name: "Rust", unavailable: false },
+  { id: 10, name: "SCSS", unavailable: false },
+  { id: 11, name: "Docker", unavailable: false },
+  { id: 12, name: "Ruby", unavailable: false },
+  { id: 13, name: "Python", unavailable: false },
+  { id: 14, name: "PHP", unavailable: false },
+  { id: 15, name: "Java", unavailable: false },
+  { id: 16, name: "Vim script", unavailable: false },
+  { id: 17, name: "Vue", unavailable: false },
 ];
 
 const fetcher = (args) => fetch(args).then((res) => res.json());
@@ -53,7 +65,7 @@ const Home = () => {
   };
 
   const filterLanguage = info?.filter((git) =>
-    git.language.includes(selected.name)
+    git.language?.includes(selected.name)
   );
 
   const filterLanguageError = myStars.filter((git) =>
@@ -65,7 +77,7 @@ const Home = () => {
       <Layout>
         <div>
           <p>APIのリクエストの制限が超えました。</p>
-          <div className="w-72 top-16">
+          <div className="w-72">
             <Listbox value={selected} onChange={setSelected}>
               {({ open }) => (
                 <div className="relative mt-1">
@@ -104,15 +116,16 @@ const Home = () => {
                         >
                           {({ selected, active }) => (
                             <>
-                              <span
-                                className={`${
-                                  selected
-                                    ? `font-medium text-${person.name}`
-                                    : `font-normal text-${person.name}`
-                                } block truncate`}
-                              >
-                                {person.name}
-                              </span>
+                              <div className="flex items-center">
+                                <span
+                                  className={`w-5 h-5 bg-${person.name}`}
+                                ></span>
+                                <p
+                                  className={`font-normal text-${person.name}`}
+                                >
+                                  {person.name}
+                                </p>
+                              </div>
                               {selected ? (
                                 <span
                                   className={`${
@@ -173,7 +186,7 @@ const Home = () => {
                 onChange={(e) => setUser(e.target.value)}
                 placeholder="Your GitHub ID"
               />
-              <div className="p-4">
+              <div className="py-2 px-4">
                 <button
                   onClick={() => getData()}
                   className="bg-teal-500 text-white rounded-full p-2 hover:bg-teal-400 focus:outline-none w-12 h-12 flex items-center justify-center"
@@ -184,7 +197,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="w-full mb-8">
+          <div className="w-full px-8 mb-8">
             <Listbox value={selected} onChange={setSelected}>
               {({ open }) => (
                 <div className="relative mt-1">
@@ -383,40 +396,79 @@ const Home = () => {
             )}
           </Listbox>
         </div>
-
-        <div className="w-full flex items-center justify-around">
-          <Button
-            btnText="前へ"
-            useage={page === 1 ? null : "base"}
-            size="md"
-            onClick={() => setPage(page - 1)}
-            disabled={page === 1}
-          />
-          <Button
-            btnText="次へ"
-            useage={filterLanguage.length < 100 ? null : "base"}
-            size="md"
-            disabled={filterLanguage.length < 100}
-            onClick={() => setPage(page + 1)}
-          />
-        </div>
-        <p>{filterLanguage.length}</p>
-        {filterLanguage?.map((git) => {
-          const { login, avatar_url, html_url, url } = git.owner;
-          return (
-            <div key={git.id} className="w-full">
-              <Widget
-                {...git}
-                owner={{
-                  avatar_url: avatar_url,
-                  login: login,
-                  html_url: html_url,
-                  url: url,
-                }}
+        {selected.name === "languages" ? (
+          <>
+            <div className="w-full flex items-center justify-around">
+              <Button
+                btnText="前へ"
+                useage={page === 1 ? null : "base"}
+                size="md"
+                onClick={() => setPage(page - 1)}
+                disabled={page === 1}
+              />
+              <Button
+                btnText="次へ"
+                useage={info.length < 100 ? null : "base"}
+                size="md"
+                disabled={info.length < 100}
+                onClick={() => setPage(page + 1)}
               />
             </div>
-          );
-        })}
+            <p>{info.length}</p>
+            {info?.map((git) => {
+              const { login, avatar_url, html_url, url } = git.owner;
+              return (
+                <div key={git.id} className="w-full">
+                  <Widget
+                    {...git}
+                    owner={{
+                      avatar_url: avatar_url,
+                      login: login,
+                      html_url: html_url,
+                      url: url,
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </>
+        ) : (
+          <>
+            <div className="w-full flex items-center justify-around">
+              <Button
+                btnText="前へ"
+                useage={page === 1 ? null : "base"}
+                size="md"
+                onClick={() => setPage(page - 1)}
+                disabled={page === 1}
+              />
+              <Button
+                btnText="次へ"
+                useage={filterLanguage.length < 100 ? null : "base"}
+                size="md"
+                disabled={filterLanguage.length < 100}
+                onClick={() => setPage(page + 1)}
+              />
+            </div>
+            <p>{filterLanguage.length}</p>
+            {filterLanguage?.map((git) => {
+              const { login, avatar_url, html_url, url } = git.owner;
+              return (
+                <div key={git.id} className="w-full">
+                  <Widget
+                    {...git}
+                    owner={{
+                      avatar_url: avatar_url,
+                      login: login,
+                      html_url: html_url,
+                      url: url,
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </>
+        )}
       </div>
     </Layout>
   );
