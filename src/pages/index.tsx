@@ -155,7 +155,7 @@ const Home = () => {
   return (
     <Layout>
       <div className="w-full">
-        <div className="p-8">
+        <div className="px-8 mb-8">
           <Search
             value={user}
             onClick={() => getData()}
@@ -188,7 +188,7 @@ const Home = () => {
                 onClick={() => setPage(page + 1)}
               />
             </div> */}
-            <p>{info.length}</p>
+            <p>{info.length}Hits</p>
             {info?.map((git) => {
               const { login, avatar_url, html_url, url } = git.owner;
               return (
@@ -224,7 +224,7 @@ const Home = () => {
                 onClick={() => setPage(page + 1)}
               />
             </div> */}
-            <p>{filterLanguage.length}</p>
+            <p>{filterLanguage.length}Hits</p>
             {filterLanguage?.map((git) => {
               const { login, avatar_url, html_url, url } = git.owner;
               return (

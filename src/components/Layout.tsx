@@ -25,25 +25,35 @@ export const Layout: VFC<Props> = (props) => {
   return (
     <>
       <Head>
-        <title>{meta.title}</title>
+        <title>GSQ | GitHub Star Query</title>
         <meta charSet="utf-8" />
         <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta name="robots" content="follow, index" />
-        <link href="/icon/16.ico" rel="shortcut icon" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/icon/180.png" />
+        <link
+          href="https://user-images.githubusercontent.com/67810971/117013632-012f2d00-ad2b-11eb-9d6d-63814766704b.png"
+          rel="shortcut icon"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="https://user-images.githubusercontent.com/67810971/117012806-430ba380-ad2a-11eb-9e75-150b60da6ce2.png"
+        />
         <link
           rel="icon"
           sizes="32x32"
-          href="https://user-images.githubusercontent.com/67810971/113526965-e5831a80-95f6-11eb-9cc7-99affd12a18f.png"
+          href="https://user-images.githubusercontent.com/67810971/117013632-012f2d00-ad2b-11eb-9d6d-63814766704b.png"
         />
         <link
           rel="icon"
           sizes="16x16"
-          href="https://user-images.githubusercontent.com/67810971/113526965-e5831a80-95f6-11eb-9cc7-99affd12a18f.png"
+          href="https://user-images.githubusercontent.com/67810971/117013632-012f2d00-ad2b-11eb-9d6d-63814766704b.png"
         />
         {/* <link rel="manifest" href="/site.webmanifest" /> */}
-        <meta content={meta.description} name="description" />
+        <meta
+          content="GitHubのスターを簡単にクエリできます。ユーザーIDを入力して検索し、言語ごとでクエリできます。"
+          name="description"
+        />
         <meta
           property="og:url"
           content={`https://emoji-diary.vercel.app${router.asPath}`}
