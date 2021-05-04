@@ -86,8 +86,8 @@ export const Widget: VFC<StarRepos> = ({
   // }, []);
 
   return (
-    <div className="flex flex-col border-b px-4 pb-2 transition duration-200 hover:bg-teal-50">
-      <div className="flex items-center pt-2 mb-2">
+    <div className="flex flex-col border-b px-4 pb-1 transition duration-200 hover:bg-teal-50">
+      <div className="flex items-center pt-1 mb-1">
         <div className="mr-4">
           <a href={`https://github.com/${owner.login}`}>
             <img
@@ -111,7 +111,10 @@ export const Widget: VFC<StarRepos> = ({
           </a>
         </div>
       </div>
-      {/* <div className="mb-4">{`${description?.slice(0, 100)}...`}</div> */}
+      <div className="mb-1 whitespace-pre-wrap">{`${description?.slice(
+        0,
+        30
+      )}...`}</div>
       <div className="flex items-center">
         <p className="flex items-center mr-4">
           <GiRoundStar className="text-yellow-400 text-lg mr-1" />
