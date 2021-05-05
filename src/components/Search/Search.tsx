@@ -1,12 +1,13 @@
 import React, { VFC, MouseEventHandler, ChangeEventHandler } from "react";
-import { FaUserAlt } from "react-icons/fa";
+import { FaUserAlt, FaSearch } from "react-icons/fa";
 
 type SearchInfo = {
   value: string | null;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onClick: MouseEventHandler;
+  type: "user" | "search";
 };
-export const Search: VFC<SearchInfo> = ({ value, onChange, onClick }) => {
+export const Search: VFC<SearchInfo> = ({ value, onChange, onClick, type }) => {
   return (
     <div className="transition duration-200 bg-white flex items-center rounded-full shadow-md hover:shadow-lg">
       <input
@@ -15,14 +16,14 @@ export const Search: VFC<SearchInfo> = ({ value, onChange, onClick }) => {
         type="text"
         value={value}
         onChange={onChange}
-        placeholder="Your GitHub ID"
+        placeholder={type === "user" ? "Your GitHub ID" : "Repository Name"}
       />
       <div className="py-2 px-4">
         <button
           onClick={onClick}
           className="bg-teal-500 text-white rounded-full p-2 hover:bg-teal-400 focus:outline-none w-12 h-12 flex items-center justify-center"
         >
-          <FaUserAlt />
+          {type === "search" ? <FaSearch /> : <FaUserAlt />}
         </button>
       </div>
     </div>
