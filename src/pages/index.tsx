@@ -8,7 +8,7 @@ import useSWR from "swr";
 import { Search } from "../components/Search/Search";
 import { Select } from "../components/Select/Select";
 import { SwitchItem } from "../components/Switch/Switch";
-import { FaUserAlt, FaSearch } from "react-icons/fa";
+import { FaUserAlt, FaSearch,FaArrowUp } from "react-icons/fa";
 
 const API_ENDPOINT = "https://api.github.com/users";
 
@@ -304,6 +304,7 @@ const Home = () => {
             )}
           </>
         )}
+        <a href="#top" className="fixed bottom-5 right-5 bg-teal-500 text-white hover:bg-teal-400 rounded-full w-10 h-10 flex flex-col items-center justify-center"><FaArrowUp /></a>
       </div>
     </Layout>
   );

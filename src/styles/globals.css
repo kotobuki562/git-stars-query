@@ -11,3 +11,6 @@
 .card {
   white-space: pre-wrap;
 }
+html {
+  scroll-behavior: smooth;
+}
