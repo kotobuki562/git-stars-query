@@ -1,10 +1,11 @@
-import { VFC, useState, useEffect } from "react";
-import Link from "next/link";
+import { VFC } from "react";
 import cc from "classcat";
 import { GiRoundStar } from "react-icons/gi";
 import { AiOutlineLink } from "react-icons/ai";
 import { HiExternalLink } from "react-icons/hi";
-import { FaRegUser, FaTwitter, FaBlog } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { ListItems } from "../ListBox/ListBox";
 
 type StarRepos = {
   name: string;
@@ -71,29 +72,45 @@ export const Widget: VFC<StarRepos> = ({
 }) => {
   return (
     <div className="flex flex-col border-b px-4 pb-2 transition duration-200 hover:ease-in-out hover:transform hover:-translate-y-1 hover:-translate-x-1 hover:bg-teal-50 hover:shadow-md">
-      <div className="flex items-center pt-2 mb-2">
-        <div className="mr-4">
-          <a href={`https://github.com/${owner.login}`}>
-            <img
-              className="w-12 h-12 rounded-full"
-              src={`${owner.avatar_url}`}
-              alt={owner.avatar_url}
-            />
-          </a>
+      <div className="flex items-center justify-between pt-2 mb-2">
+        <div className="flex items-center">
+          <div className="mr-4">
+            <a href={`https://github.com/${owner.login}`}>
+              <img
+                className="w-12 h-12 rounded-full"
+                src={`${owner.avatar_url}`}
+                alt={owner.avatar_url}
+              />
+            </a>
+          </div>
+          <div className="flex flex-col">
+            <a
+              className="font-bold text-lg flex items-center"
+              href={`${owner.html_url}`}
+            >
+              <FaRegUser className="mr-1" />
+              {owner.login}
+            </a>
+            <a className="text-teal-600 flex items-center" href={`${html_url}`}>
+              <HiExternalLink className="mr-1" />
+              {name.length >= 20 ? `${name.slice(0, 20)}...` : name}
+            </a>
+          </div>
         </div>
-        <div className="flex flex-col">
-          <a
-            className="font-bold text-lg flex items-center"
-            href={`${owner.html_url}`}
-          >
-            <FaRegUser className="mr-1" />
-            {owner.login}
-          </a>
-          <a className="text-teal-600 flex items-center" href={`${html_url}`}>
-            <HiExternalLink className="mr-1" />
-            {name.length >= 20 ? `${name.slice(0, 20)}...` : name}
-          </a>
-        </div>
+
+        {homepage ? (
+          <ListItems
+            link={
+              homepage.includes("https://" || "http://")
+                ? `${homepage}`
+                : `https://${homepage}`
+            }
+            account={`${owner.html_url}`}
+            document={`${html_url}`}
+          />
+        ) : (
+          <ListItems account={`${owner.html_url}`} document={`${html_url}`} />
+        )}
       </div>
       {description ? (
         <div className="mb-1 whitespace-pre-wrap">{`${description?.slice(
