@@ -147,62 +147,6 @@ const Home = () => {
       </Layout>
     );
   }
-  if (loading) {
-    return (
-      <Layout>
-        <div className="w-full">
-          <div className="p-8">
-            <Search
-              value={user}
-              onClick={() => getData()}
-              onChange={(e) => setUser(e.target.value)}
-              type="user"
-            />
-          </div>
-
-          <div className="w-full px-8 mb-8">
-            <Select
-              value={selected}
-              onChange={setSelected}
-              languages={languages}
-            />
-          </div>
-          <div className="px-8 mb-8">
-            <Search
-              value={repoName}
-              onClick={null}
-              onChange={(e) => setRepoName(e.target.value)}
-              type="search"
-            />
-          </div>
-          <div className="w-full flex items-center justify-around">
-            <Button
-              btnText="Back"
-              useage={page === 1 ? null : "base"}
-              size="md"
-              onClick={() => setPage(page - 1)}
-              disabled={page === 1}
-            />
-            <Button
-              btnText="Next"
-              useage={info.length < 100 ? null : "base"}
-              size="md"
-              disabled={info.length < 100}
-              onClick={() => setPage(page + 1)}
-            />
-          </div>
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
-        </div>
-      </Layout>
-    );
-  }
   return (
     <Layout>
       <div className="w-full">
@@ -229,77 +173,92 @@ const Home = () => {
             type="search"
           />
         </div>
-        {selected.name === "languages" ? (
+        {loading ? (
           <>
-            <div className="w-full flex items-center justify-around">
-              <Button
-                btnText="Back"
-                useage={page === 1 ? null : "delete"}
-                size="md"
-                onClick={() => backPageData()}
-                disabled={page === 1}
-              />
-              <Button
-                btnText="Next"
-                useage={info.length < 100 ? null : "base"}
-                size="md"
-                disabled={info.length < 100}
-                onClick={() => nextPangeData()}
-              />
-            </div>
-            <p>{filterRepoName.length}Hits</p>
-            {filterRepoName?.map((git) => {
-              const { login, avatar_url, html_url, url } = git.owner;
-              return (
-                <div key={git.id} className="w-full">
-                  <Widget
-                    {...git}
-                    owner={{
-                      avatar_url: avatar_url,
-                      login: login,
-                      html_url: html_url,
-                      url: url,
-                    }}
-                  />
-                </div>
-              );
-            })}
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
           </>
         ) : (
           <>
-            <div className="w-full flex items-center justify-around">
-              <Button
-                btnText="Back"
-                useage={page === 1 ? null : "delete"}
-                size="md"
-                onClick={() => backPageData()}
-                disabled={page === 1}
-              />
-              <Button
-                btnText="Next"
-                useage={filterLanguage.length < 100 ? null : "base"}
-                size="md"
-                disabled={filterLanguage.length < 100}
-                onClick={() => nextPangeData()}
-              />
-            </div>
-            <p>{filterLanguage.length}Hits</p>
-            {filterLanguage?.map((git) => {
-              const { login, avatar_url, html_url, url } = git.owner;
-              return (
-                <div key={git.id} className="w-full">
-                  <Widget
-                    {...git}
-                    owner={{
-                      avatar_url: avatar_url,
-                      login: login,
-                      html_url: html_url,
-                      url: url,
-                    }}
+            {selected.name === "languages" ? (
+              <>
+                <div className="w-full flex items-center justify-around">
+                  <Button
+                    btnText="Back"
+                    useage={page === 1 ? null : "delete"}
+                    size="md"
+                    onClick={() => backPageData()}
+                    disabled={page === 1}
+                  />
+                  <Button
+                    btnText="Next"
+                    useage={info.length < 100 ? null : "base"}
+                    size="md"
+                    disabled={info.length < 100}
+                    onClick={() => nextPangeData()}
                   />
                 </div>
-              );
-            })}
+                <p>{filterRepoName.length}Hits</p>
+                {filterRepoName?.map((git) => {
+                  const { login, avatar_url, html_url, url } = git.owner;
+                  return (
+                    <div key={git.id} className="w-full">
+                      <Widget
+                        {...git}
+                        owner={{
+                          avatar_url: avatar_url,
+                          login: login,
+                          html_url: html_url,
+                          url: url,
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              <>
+                <div className="w-full flex items-center justify-around">
+                  <Button
+                    btnText="Back"
+                    useage={page === 1 ? null : "delete"}
+                    size="md"
+                    onClick={() => backPageData()}
+                    disabled={page === 1}
+                  />
+                  <Button
+                    btnText="Next"
+                    useage={filterLanguage.length < 100 ? null : "base"}
+                    size="md"
+                    disabled={filterLanguage.length < 100}
+                    onClick={() => nextPangeData()}
+                  />
+                </div>
+                <p>{filterLanguage.length}Hits</p>
+                {filterLanguage?.map((git) => {
+                  const { login, avatar_url, html_url, url } = git.owner;
+                  return (
+                    <div key={git.id} className="w-full">
+                      <Widget
+                        {...git}
+                        owner={{
+                          avatar_url: avatar_url,
+                          login: login,
+                          html_url: html_url,
+                          url: url,
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              </>
+            )}
           </>
         )}
       </div>
