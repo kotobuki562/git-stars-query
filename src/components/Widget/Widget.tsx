@@ -86,8 +86,8 @@ export const Widget: VFC<StarRepos> = ({
   // }, []);
 
   return (
-    <div className="flex flex-col border-b px-4 pb-1 transition duration-200 hover:bg-teal-50">
-      <div className="flex items-center pt-1 mb-1">
+    <div className="flex flex-col border-b px-4 pb-2 transition duration-200 hover:ease-in-out hover:transform hover:-translate-y-1 hover:-translate-x-1 hover:bg-teal-50 hover:shadow-md">
+      <div className="flex items-center pt-2 mb-2">
         <div className="mr-4">
           <a href={`https://github.com/${owner.login}`}>
             <img
@@ -111,10 +111,13 @@ export const Widget: VFC<StarRepos> = ({
           </a>
         </div>
       </div>
-      <div className="mb-1 whitespace-pre-wrap">{`${description?.slice(
-        0,
-        30
-      )}...`}</div>
+      {description ? (
+        <div className="mb-1 whitespace-pre-wrap">{`${description?.slice(
+          0,
+          30
+        )}...`}</div>
+      ) : null}
+
       <div className="flex items-center">
         <p className="flex items-center mr-4">
           <GiRoundStar className="text-yellow-400 text-lg mr-1" />
@@ -151,34 +154,17 @@ export const Widget: VFC<StarRepos> = ({
 
         {homepage ? (
           <a
-            className="hover:bg-teal-100 rounded-full p-1 mr-1"
-            href={`${homepage}`}
+            className="transition duration-200 hover:bg-teal-100 rounded-full p-1 mr-1"
+            href={
+              homepage.includes("https://" || "http://")
+                ? `${homepage}`
+                : `https://${homepage}`
+            }
           >
             <AiOutlineLink className="text-xl text-teal-600" />
           </a>
         ) : null}
-
-        {/* {userInfo?.twitter_username ? (
-          <a
-            className="hover:bg-teal-100 rounded-full p-1 mr-1"
-            href={`https://twitter.com/${userInfo?.twitter_username}`}
-          >
-            <FaTwitter className="text-lg text-teal-600" />
-          </a>
-        ) : null}
-
-        {userInfo?.blog ? (
-          <a
-            className="hover:bg-teal-100 rounded-full p-1 mr-1"
-            href={`${userInfo?.blog}`}
-          >
-            <FaBlog className="text-lg text-teal-600" />
-          </a>
-        ) : null} */}
-
-        {/* <p>{languages_url}</p> */}
       </div>
-      <div>{/* <p>{clone_url}</p> */}</div>
     </div>
   );
 };

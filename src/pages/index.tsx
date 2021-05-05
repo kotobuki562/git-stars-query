@@ -7,6 +7,7 @@ import { Button } from "../components/Button/Button";
 import useSWR from "swr";
 import { Search } from "../components/Search/Search";
 import { Select } from "../components/Select/Select";
+import { SwitchItem } from "../components/Switch/Switch";
 
 const API_ENDPOINT = "https://api.github.com/users";
 
@@ -40,6 +41,7 @@ const Home = () => {
   const [info, setInfo] = useState<any[] | null>([]);
   const [error, setError] = useState<Error | null>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [link, setLink] = useState<boolean>(false);
 
   // const { data, error } = useSWR(
   //   `${API_ENDPOINT}/${user}/starred?page=${page}&per_page=100`,
@@ -100,14 +102,13 @@ const Home = () => {
   };
 
   const filterLanguage = info?.filter(
-    (git) =>
-      git.language?.includes(selected.name) && git.name.includes(repoName)
+    (git) => git.language === selected.name && git.name.includes(repoName)
   );
 
   const filterRepoName = info?.filter((git) => git.name?.includes(repoName));
 
   const filterLanguageError = myStars.filter(
-    (git) => git.language.includes(selected.name) && git.name.includes(repoName)
+    (git) => git.language === selected.name && git.name.includes(repoName)
   );
 
   const fillterRepoNameError = myStars.filter((git) =>
@@ -150,7 +151,7 @@ const Home = () => {
   return (
     <Layout>
       <div className="w-full">
-        <div className="px-8 mb-8">
+        <div className="mb-2 px-4">
           <Search
             value={user}
             onClick={() => getData()}
@@ -158,14 +159,15 @@ const Home = () => {
             type="user"
           />
         </div>
-        <div className="w-full mb-8 px-8">
+        <div className="w-full mb-2 px-4">
           <Select
             value={selected}
             onChange={setSelected}
             languages={languages}
           />
+          {/* <SwitchItem checked={link} onChange={setLink} /> */}
         </div>
-        <div className="px-8 mb-8">
+        <div className="mb-8 px-4">
           <Search
             value={repoName}
             onClick={null}
@@ -188,23 +190,31 @@ const Home = () => {
           <>
             {selected.name === "languages" ? (
               <>
-                <div className="w-full flex items-center justify-around">
-                  <Button
-                    btnText="Back"
-                    useage={page === 1 ? null : "delete"}
-                    size="md"
-                    onClick={() => backPageData()}
-                    disabled={page === 1}
-                  />
-                  <Button
-                    btnText="Next"
-                    useage={info.length < 100 ? null : "base"}
-                    size="md"
-                    disabled={info.length < 100}
-                    onClick={() => nextPangeData()}
-                  />
-                </div>
-                <p>{filterRepoName.length}Hits</p>
+                {info.length < 100 ? null : (
+                  <div className="w-full flex items-center justify-around">
+                    <Button
+                      btnText="Back"
+                      useage={page === 1 ? null : "delete"}
+                      size="md"
+                      onClick={() => backPageData()}
+                      disabled={page === 1}
+                    />
+                    <Button
+                      btnText="Next"
+                      useage={info.length < 100 ? null : "base"}
+                      size="md"
+                      disabled={info.length < 100}
+                      onClick={() => nextPangeData()}
+                    />
+                  </div>
+                )}
+
+                <p className="pl-2">
+                  <span className="text-lg text-teal-500">
+                    {filterRepoName.length}
+                  </span>
+                  Hits
+                </p>
                 {filterRepoName?.map((git) => {
                   const { login, avatar_url, html_url, url } = git.owner;
                   return (
@@ -224,23 +234,30 @@ const Home = () => {
               </>
             ) : (
               <>
-                <div className="w-full flex items-center justify-around">
-                  <Button
-                    btnText="Back"
-                    useage={page === 1 ? null : "delete"}
-                    size="md"
-                    onClick={() => backPageData()}
-                    disabled={page === 1}
-                  />
-                  <Button
-                    btnText="Next"
-                    useage={filterLanguage.length < 100 ? null : "base"}
-                    size="md"
-                    disabled={filterLanguage.length < 100}
-                    onClick={() => nextPangeData()}
-                  />
-                </div>
-                <p>{filterLanguage.length}Hits</p>
+                {filterLanguage.length < 100 ? null : (
+                  <div className="w-full flex items-center justify-around">
+                    <Button
+                      btnText="Back"
+                      useage={page === 1 ? null : "delete"}
+                      size="md"
+                      onClick={() => backPageData()}
+                      disabled={page === 1}
+                    />
+                    <Button
+                      btnText="Next"
+                      useage={info.length < 100 ? null : "base"}
+                      size="md"
+                      disabled={info.length < 100}
+                      onClick={() => nextPangeData()}
+                    />
+                  </div>
+                )}
+                <p className="pl-2">
+                  <span className="text-lg text-teal-500">
+                    {filterLanguage.length}
+                    Hits
+                  </span>
+                </p>
                 {filterLanguage?.map((git) => {
                   const { login, avatar_url, html_url, url } = git.owner;
                   return (
