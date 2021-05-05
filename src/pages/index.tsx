@@ -8,6 +8,7 @@ import useSWR from "swr";
 import { Search } from "../components/Search/Search";
 import { Select } from "../components/Select/Select";
 import { SwitchItem } from "../components/Switch/Switch";
+import { FaUserAlt, FaSearch } from "react-icons/fa";
 
 const API_ENDPOINT = "https://api.github.com/users";
 
@@ -28,7 +29,17 @@ const languages = [
   { id: 14, name: "PHP", unavailable: false },
   { id: 15, name: "Java", unavailable: false },
   { id: 16, name: "Vim script", unavailable: false },
-  { id: 17, name: "Vue", unavailable: false },
+  { id: 18, name: "Shell", unavailable: false },
+  { id: 19, name: "Swift", unavailable: false },
+  { id: 20, name: "M4", unavailable: false },
+  { id: 21, name: "Other", unavailable: false },
+  { id: 22, name: "Assemby", unavailable: false },
+  { id: 23, name: "C#", unavailable: false },
+  { id: 24, name: "Objective-C", unavailable: false },
+  { id: 25, name: "Other", unavailable: false },
+  { id: 26, name: "Batchfile", unavailable: false },
+  { id: 27, name: "YAML", unavailable: false },
+  { id: 28, name: "JSON", unavailable: false },
 ];
 
 const fetcher = (args) => fetch(args).then((res) => res.json());
@@ -41,7 +52,7 @@ const Home = () => {
   const [info, setInfo] = useState<any[] | null>([]);
   const [error, setError] = useState<Error | null>();
   const [loading, setLoading] = useState<boolean>(false);
-  const [link, setLink] = useState<boolean>(false);
+  const [userInfo, setUserInfo] = useState<any>();
 
   // const { data, error } = useSWR(
   //   `${API_ENDPOINT}/${user}/starred?page=${page}&per_page=100`,
@@ -55,7 +66,10 @@ const Home = () => {
         `${API_ENDPOINT}/${user}/starred?page=${page}&per_page=100`
       );
       const data = await res.json();
-      console.log(data);
+      const resUser = await fetch(`${API_ENDPOINT}/${user}`);
+      const dataUser = await resUser.json();
+      console.log(data, dataUser);
+      setUserInfo(dataUser);
       setInfo(data);
       setError(error);
       return setLoading(false);
@@ -157,6 +171,17 @@ const Home = () => {
             onClick={() => getData()}
             onChange={(e) => setUser(e.target.value)}
             type="user"
+            icon={
+              userInfo ? (
+                <img
+                  className="rounded-full"
+                  src={userInfo.avatar_url}
+                  alt={user}
+                />
+              ) : (
+                <FaUserAlt />
+              )
+            }
           />
         </div>
         <div className="w-full mb-2 px-4">
@@ -173,6 +198,7 @@ const Home = () => {
             onClick={null}
             onChange={(e) => setRepoName(e.target.value)}
             type="search"
+            icon={<FaSearch />}
           />
         </div>
         {loading ? (

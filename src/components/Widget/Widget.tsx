@@ -30,6 +30,18 @@ type StarRepos = {
     | "Rust"
     | "Java"
     | "Vim script"
+    | "Shell"
+    | "Swift"
+    | "M4"
+    | "Other"
+    | "Assemby"
+    | "C#"
+    | "Objective-C"
+    | "Nim"
+    | "Other"
+    | "Batchfile"
+    | "YAML"
+    | "JSON"
     | string
     | null;
   // APIURL
@@ -57,34 +69,6 @@ export const Widget: VFC<StarRepos> = ({
   description,
   owner,
 }) => {
-  // const [languages, setLanguages] = useState();
-  const [userInfo, setUserInfo] = useState<any | null>();
-  // const fetchUserInfo = async () => {
-  //   try {
-  //     const res = await fetch(owner.url);
-  //     const data = await res.json();
-  //     setUserInfo(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // // const fetchLanguages = async () => {
-  // //   try {
-  // //     const res = await fetch(languages_url);
-  // //     const data = await res.json();
-  // //     setLanguages(data);
-  // //   } catch (error) {
-  // //     console.log(error);
-  // //   }
-  // // };
-  // // console.log(languages);
-  // console.log(userInfo);
-
-  // useEffect(() => {
-  //   // fetchLanguages();
-  //   fetchUserInfo();
-  // }, []);
-
   return (
     <div className="flex flex-col border-b px-4 pb-2 transition duration-200 hover:ease-in-out hover:transform hover:-translate-y-1 hover:-translate-x-1 hover:bg-teal-50 hover:shadow-md">
       <div className="flex items-center pt-2 mb-2">
@@ -145,6 +129,18 @@ export const Widget: VFC<StarRepos> = ({
               language === "C" ? "bg-C text-white" : null,
               language === "C++" ? "bg-C++ text-white" : null,
               language === "Vim script" ? "bg-Vimscript text-white" : null,
+              // ここから
+              language === "Shell" ? "bg-Shell text-white" : null,
+              language === "Swift" ? "bg-Swift text-white" : null,
+              language === "M4" ? "bg-M4 text-white" : null,
+              language === "Other" ? "bg-Other text-white" : null,
+              language === "Assemby" ? "bg-Assemby text-white" : null,
+              language === "Nim" ? "bg-Nim text-white" : null,
+              language === "Objective-C" ? "bg-Objective-C text-white" : null,
+              language === "C#" ? "bg-C# text-white" : null,
+              language === "JSON" ? "bg-JSON text-white" : null,
+              language === "YAML" ? "bg-YAML text-white" : null,
+              language === "Batchfile" ? "bg-Batchfile text-white" : null,
             ])}
           >
             {/* {language.slice(0, 1) || null} */}
