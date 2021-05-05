@@ -1,34 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## このアプリについて
 
-## Getting Started
+![GHQ](https://user-images.githubusercontent.com/67810971/117091924-c7484000-ad97-11eb-9eaf-c769ca7ec2de.png)
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+GitHubのスター登録したものをクエリ出来るアプリです。
+GitHub標準のスターフィルターもあるのですが、少々使いにくさを感じることがあったり、モバイルアプリ版ではそもそもフィルター機能がなかったりするので作りました。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+私はしばしば電車や移動の時に様々なGitHubリポジトリを見るのが好きで、よくスター登録機能を活用します。手軽に自分がスター登録したものを閲覧できるように作成しました。
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+👉 https://git-stars-query.vercel.app/
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## 使い方
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+主に機能は3つ有ます
 
-## Learn More
+1. ユーザーIDで自身のスター登録したリポジトリを取得
+2. 言語ごとでのクエリ
+3. リポジトリネームでクエリ
 
-To learn more about Next.js, take a look at the following resources:
+画像付きで詳細を綴ります。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| ![localhost_3000_(iPhone 6_7_8) (1)](https://user-images.githubusercontent.com/67810971/117090970-cbbf2980-ad94-11eb-90c1-cc982b8ffaf0.png) | ![localhost_3000_(iPhone 6_7_8) (2)](https://user-images.githubusercontent.com/67810971/117090995-dd083600-ad94-11eb-9ec8-658ae1cd9240.png) |
+| ------------- | ------------- |
+| まずは一番上の入力フォームに自身のGitHubアカウントIDを入力します。入力後に右のアカウントボタンを押します。  | アカウントボタンを押すと入力されたGitHubアカウントIDに紐づいたスター登録したリポジトリ一覧が表示されます。  |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+| ![localhost_3000_(iPhone 6_7_8) (3)](https://user-images.githubusercontent.com/67810971/117091270-b1d21680-ad95-11eb-9309-f3117289363c.png) | ![localhost_3000_(iPhone 6_7_8) (4)](https://user-images.githubusercontent.com/67810971/117091290-bac2e800-ad95-11eb-89c1-69d403582413.png) |
+| ------------- | ------------- |
+| 続いて言語ごとのクエリです。「languages」というセレクタの状態は全てのstarを取得します。画像では「Dart」を指定しているのでDart言語のスター登録済みのリポジトリ一覧画面取得されます。  | 最後にリポジトリネームでのクエリです。リポジトリネームに含まれる単語を入力すれば取得できます。 画像では「supa」と入力することでsupabaseに関連するリポジトリが多く取得されています。 |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 注意事項
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+APIの仕様上、一回のリクエストに対して100件のデータ取得までとなります。100件以降は「Next」ボタンを押すことで次の100件を取得できます。
+また、1時間あたり5000件以上のリクエストが行われると制限がかかりますのでご注意ください。
+制限中はデータを取得できないので、私が登録しているスターを表示させています。制限が開始して1時間経つと再びデータ取得が可能になります。
+
+## こだわりポイント
+
+UI/UXを既存のGitHubよりも優れたものにできたと思います。
+
+1. スマホ画面では1画面で最大6件のリポジトリが見られるところ。
+2. リポジトリのホームページがあればリンク先へ飛ぶことができるリンクボタンがある(クリップのようなアイコン)
+
+## 改善点
+
+クエリの種類がまだ少ないため、機能補充を検討中。
+夜でも目に優しいダークモードを実装
