@@ -7,8 +7,7 @@ import { Button } from "../components/Button/Button";
 import useSWR from "swr";
 import { Search } from "../components/Search/Search";
 import { Select } from "../components/Select/Select";
-import { SwitchItem } from "../components/Switch/Switch";
-import { FaUserAlt, FaSearch,FaArrowUp } from "react-icons/fa";
+import { FaUserAlt, FaSearch, FaArrowUp } from "react-icons/fa";
 
 const API_ENDPOINT = "https://api.github.com/users";
 
@@ -82,10 +81,10 @@ const Home = () => {
   const nextPangeData = async () => {
     try {
       setLoading(true);
-      await setPage(page + 1);
       const res = await fetch(
-        `${API_ENDPOINT}/${user}/starred?page=${page}&per_page=100`
+        `${API_ENDPOINT}/${user}/starred?page=${page + 1}&per_page=100`
       );
+      setPage((page) => page + 1);
       const data = await res.json();
       console.log(data);
       setInfo(data);
@@ -100,10 +99,10 @@ const Home = () => {
   const backPageData = async () => {
     try {
       setLoading(true);
-      await setPage(page - 1);
       const res = await fetch(
-        `${API_ENDPOINT}/${user}/starred?page=${page}&per_page=100`
+        `${API_ENDPOINT}/${user}/starred?page=${page - 1}&per_page=100`
       );
+      setPage((page) => page - 1);
       const data = await res.json();
       console.log(data);
       setInfo(data);
@@ -216,24 +215,22 @@ const Home = () => {
           <>
             {selected.name === "languages" ? (
               <>
-                {info.length < 100 ? null : (
-                  <div className="w-full flex items-center justify-around">
-                    <Button
-                      btnText="Back"
-                      useage={page === 1 ? null : "delete"}
-                      size="md"
-                      onClick={() => backPageData()}
-                      disabled={page === 1}
-                    />
-                    <Button
-                      btnText="Next"
-                      useage={info.length < 100 ? null : "base"}
-                      size="md"
-                      disabled={info.length < 100}
-                      onClick={() => nextPangeData()}
-                    />
-                  </div>
-                )}
+                <div className="w-full flex items-center justify-around">
+                  <Button
+                    btnText="Back"
+                    useage={page === 1 ? null : "delete"}
+                    size="md"
+                    onClick={() => backPageData()}
+                    disabled={page === 1}
+                  />
+                  <Button
+                    btnText="Next"
+                    useage={info.length < 100 ? null : "base"}
+                    size="md"
+                    disabled={info.length < 100}
+                    onClick={() => nextPangeData()}
+                  />
+                </div>
 
                 <p className="pl-2">
                   <span className="text-lg text-teal-500">
@@ -260,24 +257,22 @@ const Home = () => {
               </>
             ) : (
               <>
-                {filterLanguage.length < 100 ? null : (
-                  <div className="w-full flex items-center justify-around">
-                    <Button
-                      btnText="Back"
-                      useage={page === 1 ? null : "delete"}
-                      size="md"
-                      onClick={() => backPageData()}
-                      disabled={page === 1}
-                    />
-                    <Button
-                      btnText="Next"
-                      useage={info.length < 100 ? null : "base"}
-                      size="md"
-                      disabled={info.length < 100}
-                      onClick={() => nextPangeData()}
-                    />
-                  </div>
-                )}
+                <div className="w-full flex items-center justify-around">
+                  <Button
+                    btnText="Back"
+                    useage={page === 1 ? null : "delete"}
+                    size="md"
+                    onClick={() => backPageData()}
+                    disabled={page === 1}
+                  />
+                  <Button
+                    btnText="Next"
+                    useage={info.length < 100 ? null : "base"}
+                    size="md"
+                    disabled={info.length < 100}
+                    onClick={() => nextPangeData()}
+                  />
+                </div>
                 <p className="pl-2">
                   <span className="text-lg text-teal-500">
                     {filterLanguage.length}
@@ -304,7 +299,12 @@ const Home = () => {
             )}
           </>
         )}
-        <a href="#top" className="fixed bottom-5 right-5 bg-teal-500 text-white hover:bg-teal-400 rounded-full w-10 h-10 flex flex-col items-center justify-center"><FaArrowUp /></a>
+        <a
+          href="#top"
+          className="fixed bottom-5 right-5 bg-teal-500 text-white hover:bg-teal-400 rounded-full w-10 h-10 flex flex-col items-center justify-center"
+        >
+          <FaArrowUp />
+        </a>
       </div>
     </Layout>
   );
